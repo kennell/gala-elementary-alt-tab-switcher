@@ -431,7 +431,7 @@ namespace Gala.Plugins.ElementaryAltTab
 			}
 
 			if (initial) {
-				caption.set_text (current_caption);
+				// caption.set_text (current_caption);
 				caption.set_position (wrapper.width/2 - caption.width/2,
 					container.y + container.height + settings.indicator_border +
 						settings.caption_top_magrin);
@@ -451,7 +451,7 @@ namespace Gala.Plugins.ElementaryAltTab
 		        caption.restore_easing_state ();
 			}
 
-        	caption.set_text (current_caption);
+        	// caption.set_text (current_caption);
 
 			if (settings.animate) {
 	        	caption.save_easing_state ();
