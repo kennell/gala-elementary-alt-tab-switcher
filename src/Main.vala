@@ -27,6 +27,7 @@ namespace Gala.Plugins.ElementaryAltTab
 
 	public const string SWITCHER_PLUGIN_VERSION="0.2";
 
+
 	public class Main : Gala.Plugin
 	{
 		const int MIN_OFFSET = 64;
@@ -89,6 +90,11 @@ namespace Gala.Plugins.ElementaryAltTab
 			wrapper.add_child (indicator);
 			wrapper.add_child (container);
 			wrapper.add_child (caption);
+		}
+
+		public uint32 get_timestamp(){
+			var screen = wm.get_screen ();
+			return screen.get_display ().get_current_time ();
 		}
 
 		public override void destroy ()
@@ -314,7 +320,7 @@ namespace Gala.Plugins.ElementaryAltTab
 
 			// if we did not have the grab before the key was released, close immediately
 			if ((get_current_modifiers () & modifier_mask) == 0)
-				close_switcher (screen.get_display ().get_current_time ());
+				close_switcher (get_timestamp());
 		}
 
 		void close_switcher (uint32 time)
@@ -357,11 +363,12 @@ namespace Gala.Plugins.ElementaryAltTab
 					return;
 				}
 
+
 				var workspace = window.get_workspace ();
 				if (workspace != wm.get_screen ().get_active_workspace ())
-					workspace.activate_with_focus (window, time);
+					workspace.activate_with_focus (window, get_timestamp());
 				else
-					window.activate (time);
+					window.activate (get_timestamp());
 			}
 		}
 
@@ -521,7 +528,7 @@ namespace Gala.Plugins.ElementaryAltTab
 			if (current_window == null)
 				return;
 			var screen = current_window.get_screen ();
-			current_window.@delete (screen.get_display ().get_current_time ());
+			current_window.@delete (get_timestamp());
 			//collect_windows ();
 		}
 
@@ -529,7 +536,7 @@ namespace Gala.Plugins.ElementaryAltTab
 		{
 			if (opened) {
 				//FIXME: problem if layout swicher across witch window switcher shortcut
-				close_switcher (wm.get_screen ().get_display ().get_current_time ());
+				close_switcher (get_timestamp());
 			}
 		}
 
